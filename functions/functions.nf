@@ -2,14 +2,9 @@
  * Miscellaneous helper functions used all over the pipeline.
  */
 
-def speciesPath(genomeInfo)
+def bowtiePath(genomeInfo)
 {
-    return "${params.referenceTop}/${genomeInfo.species}"
-}
-
-def assemblyPath(genomeInfo)
-{
-    return "${speciesPath(genomeInfo)}/${genomeInfo.version}"
+    return "${params.referenceTop}/bowtie_indexes"
 }
 
 /*

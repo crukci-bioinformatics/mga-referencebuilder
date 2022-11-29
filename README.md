@@ -1,4 +1,3 @@
-# CRUK-CI Bioinformatics Reference Builder Pipeline - Nextflow Version
+# CRUK-CI Bioinformatics MGA Reference Builder Pipeline
 
-A pipeline to build our reference data structure.
-
+A pipeline to build references for the MGA application.
