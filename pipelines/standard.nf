@@ -2,7 +2,20 @@
     Pipeline to fetch and process FASTA reference sequence.
 */
 
-include { javaMemMB } from '../functions/functions'
+include { javaMemMB; bowtiePath } from '../functions/functions'
+
+def readGenomeInfo(propsFile)
+{
+    def genomeInfo = new Properties()
+    propsFile.withReader { genomeInfo.load(it) }
+
+    // Add some derived information for convenience.
+
+    genomeInfo['species'] = genomeInfo['name.scientific'].toLowerCase().replace(' ', '_')
+    genomeInfo['base'] = genomeInfo['abbreviation'] + '.' + genomeInfo['version']
+
+    return genomeInfo
+}
 
 process fetchFasta
 {
@@ -49,12 +62,23 @@ process recreateFasta
         template "fasta/RecreateFasta.sh"
 }
 
-workflow fastaWF
+workflow standardWF
 {
-    take:
-        genomeInfoChannel
-
     main:
+        genomeInfoChannel = channel
+            .fromPath("${params.genomeInfoDirectory}/*.properties")
+            .map
+            {
+                readGenomeInfo(it)
+            }
+            .filter
+            {
+                genomeInfo ->
+                def bowtieBase = "${bowtiePath()}/${genomeInfo.base}"
+                def requiredFiles = [ file("${bowtieBase}.1.ebwt"), file("${bowtieBase}.rev.1.ebwt") ]
+                return requiredFiles.any { !it.exists() }
+            }
+
         fetchFasta(genomeInfoChannel) | recreateFasta
 
     emit:

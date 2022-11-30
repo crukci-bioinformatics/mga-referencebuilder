@@ -4,7 +4,7 @@ process bowtie1Index
 {
     label 'builder'
 
-    publishDir "${bowtiePath(genomeInfo)}", mode: 'copy'
+    publishDir "${bowtiePath()}", mode: 'copy'
 
     input:
         tuple val(genomeInfo), path(fastaFile)

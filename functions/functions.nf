@@ -2,7 +2,7 @@
  * Miscellaneous helper functions used all over the pipeline.
  */
 
-def bowtiePath(genomeInfo)
+def bowtiePath()
 {
     return "${params.referenceTop}/bowtie_indexes"
 }
