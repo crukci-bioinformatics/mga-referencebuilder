@@ -2,8 +2,8 @@ include { javaMemMB; bowtiePath } from '../functions/functions'
 
 process fetchAssemblySummary
 {
-    label 'fetcher'
-    tag 'fungi'
+    label 'tiny'
+    tag { id }
 
     input:
         val(id)
@@ -39,9 +39,9 @@ process fetchFungi
         """
 }
 
-process createFungiFasta
+process createFungi
 {
-    tag 'fungi'
+    tag 'fungi.NCBI'
 
     input:
         path(inputFiles)
@@ -51,7 +51,7 @@ process createFungiFasta
 
     shell:
         javaMem = javaMemMB(task)
-        outputFile = "fungi.fa"
+        outputFile = "fungi.NCBI.fa"
 
         template "ConcatenateFiles.sh"
 }
@@ -59,7 +59,7 @@ process createFungiFasta
 workflow fungiWF
 {
     main:
-        fungiChannel = channel.of('fungi')
+        fungiChannel = channel.of('fungi.NCBI')
             .filter
             {
                 id ->
@@ -88,9 +88,9 @@ workflow fungiWF
 
         fetchFungi(urlChannel)
 
-        createFasta(fetchFungi.out.collect())
+        createFungi(fetchFungi.out.collect())
 
-        indexChannel = createFasta.out
+        indexChannel = createFungi.out
             .map
             {
                 fastaFile ->
