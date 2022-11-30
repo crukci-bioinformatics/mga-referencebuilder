@@ -1,10 +1,10 @@
 include { bowtiePath } from '../functions/functions'
 include { fetchAssemblySummary; fetchGenomic; createFasta } from '../processes/ncbi'
 
-workflow fungiWF
+workflow virusesWF
 {
     main:
-        def id = 'fungi.NCBI'
+        def id = 'viruses.NCBI'
 
         infoChannel = channel.of(id)
             .filter
@@ -14,15 +14,10 @@ workflow fungiWF
                 return requiredFiles.any { !it.exists() }
             }
 
-        fetchAssemblySummary(infoChannel, 'fungi')
+        fetchAssemblySummary(infoChannel, 'viral')
 
         urlChannel = fetchAssemblySummary.out
             .splitCsv(sep: '\t', skip: 2)
-            .filter
-            {
-                row ->
-                return row[4] != 'na' && row[11] != 'Scaffold' && row[11] != 'Contig'
-            }
             .map
             {
                 row ->
@@ -45,5 +40,5 @@ workflow fungiWF
             }
 
     emit:
-        fungiChannel = indexChannel
+        virusesChannel = indexChannel
 }

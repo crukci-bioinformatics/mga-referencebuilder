@@ -3,7 +3,7 @@ include { bowtiePath } from '../functions/functions'
 process bowtie1Index
 {
     label 'builder'
-    maxForks 8
+    maxForks 4
 
     publishDir "${bowtiePath()}", mode: 'copy'
 
