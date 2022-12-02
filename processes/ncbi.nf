@@ -16,7 +16,7 @@ process fetchAssemblySummary
         assemblySummary = 'assembly_summary.txt'
 
         """
-        curl -s -o !{assemblySummary} "ftp://ftp.ncbi.nlm.nih.gov/genomes/genbank/${type}/!{assemblySummary}"
+        curl -s -o !{assemblySummary} "https://ftp.ncbi.nlm.nih.gov/genomes/genbank/${type}/!{assemblySummary}"
         """
 }
 

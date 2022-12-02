@@ -1,11 +1,12 @@
 #!/bin/sh
 
 TAG="latest"
-REPO="crukcibioinformatics/referencebuilder:$TAG"
+REPO="crukcibioinformatics/mgareferencebuilder:$TAG"
+SIF="mgareferencebuilder-$TAG.sif"
 
-sudo rm -f referencebuilder*.sif
+sudo rm -f mgareferencebuilder*.sif
 
-sudo singularity build referencebuilder-$TAG.sif docker-daemon://${REPO}
-sudo chown $USER referencebuilder-$TAG.sif
-chmod a-x referencebuilder-$TAG.sif
+sudo singularity build "$SIF" docker-daemon://${REPO}
+sudo chown $USER "$SIF"
+chmod a-x "$SIF"
 

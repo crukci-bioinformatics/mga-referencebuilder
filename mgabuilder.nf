@@ -2,23 +2,29 @@
 
 nextflow.enable.dsl = 2
 
-include { standardWF } from './pipelines/standard'
+include { bacteriaWF } from './pipelines/bacteria'
 include { fungiWF } from './pipelines/fungi'
 include { mycoplasmaWF } from './pipelines/mycoplasma'
 include { ribosomalRnaWF } from './pipelines/ribosomalrna'
+include { standardWF } from './pipelines/standard'
 include { virusesWF } from './pipelines/viruses'
+
 include { bowtie1Index } from './processes/bowtie1'
 
 workflow
 {
+    bacteriaWF()
     fungiWF()
-    mycoplasmaWF()
+    // mycoplasmaWF()
     ribosomalRnaWF()
-    //virusesWF()
-    //standardWF()
+    virusesWF()
+    standardWF()
 
-    //bowtieChannel = standardWF.out.mix(fungiWF.out)
-    bowtieChannel = mycoplasmaWF.out.mix(fungiWF.out).mix(ribosomalRnaWF.out)
+    bowtieChannel = standardWF.out
+        .mix(bacteriaWF.out)
+        .mix(fungiWF.out)
+        .mix(ribosomalRnaWF.out)
+        .mix(virusesWF.out)
 
     bowtie1Index(bowtieChannel)
 }
