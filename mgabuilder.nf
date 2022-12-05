@@ -13,6 +13,8 @@ include { bowtie1Index } from './processes/bowtie1'
 
 workflow
 {
+    virusesWF()
+    /*
     bacteriaWF()
     fungiWF()
     // mycoplasmaWF()
@@ -27,4 +29,5 @@ workflow
         .mix(virusesWF.out)
 
     bowtie1Index(bowtieChannel)
+    */
 }

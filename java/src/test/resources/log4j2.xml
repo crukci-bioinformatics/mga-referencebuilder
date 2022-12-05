@@ -13,6 +13,8 @@
     <Loggers>
         <Logger name="org.cruk" level="ERROR"/>
 
+        <Logger name="org.cruk.pipelines.referencegenomes" level="ERROR"/>
+
         <Root level="ERROR">
             <AppenderRef ref="console"/>
         </Root>
