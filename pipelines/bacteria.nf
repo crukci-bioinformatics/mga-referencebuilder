@@ -1,5 +1,5 @@
 include { bowtiePath } from '../functions/functions'
-include { fetchAssemblySummary; fetchGenomic; createFasta } from '../processes/ncbi'
+include { fetchAssemblySummary; fetchAndCreateFasta } from '../processes/ncbi'
 
 process selectGenomes
 {
@@ -46,20 +46,12 @@ workflow bacteriaWF
 
         urlChannel = selectGenomes.out
             .splitCsv(sep: '\t', skip: 1)
-            .map
-            {
-                row ->
-                def url = row[6]
-                def urlParts = url.split('/')
-                def thisId = urlParts[urlParts.length - 1]
-                tuple thisId, url
-            }
+            .map { row -> row[6] }
+            .collectFile(storeDir: "${workDir}", name: "bacteria_ncbi_url_list.txt", newLine: true)
 
-        fetchGenomic(urlChannel)
+        fetchAndCreateFasta(id, urlChannel)
 
-        createFasta(id, fetchGenomic.out.collect())
-
-        indexChannel = createFasta.out
+        indexChannel = fetchAndCreateFasta.out
             .map
             {
                 fastaFile ->

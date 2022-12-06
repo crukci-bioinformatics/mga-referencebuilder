@@ -21,6 +21,7 @@ import org.apache.commons.compress.compressors.CompressorStreamFactory;
 import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.cruk.common.compression.CompressionOutputStreamBuilder;
 import org.cruk.common.compression.CompressionUtils;
 
 import picocli.CommandLine;
@@ -92,7 +93,10 @@ public class ConcatenateFiles implements Callable<Integer>
 
             out = outputFile != null ? new FileOutputStream(outputFile) : System.out;
 
-            out = CompressionUtils.addCompressionStream(out, largeBufferSize, compression, digest);
+            out = CompressionOutputStreamBuilder.newInstance()
+                    .withBufferSize(largeBufferSize)
+                    .withCompressionMethod(compression)
+                    .addCompressionStream(out, digest);
 
             for (File f : inputFiles)
             {

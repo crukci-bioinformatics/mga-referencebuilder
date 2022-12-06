@@ -57,3 +57,25 @@ process createFasta
 
         template "ConcatenateFiles.sh"
 }
+
+process fetchAndCreateFasta
+{
+    tag { id }
+
+    publishDir "${launchDir}/customFasta", mode: 'link'
+
+    cpus 7
+
+    input:
+        val(id)
+        path(urlFile)
+
+    output:
+        path(outputFile)
+
+    shell:
+        javaMem = javaMemMB(task)
+        outputFile = "${id}.fa"
+
+        template "ncbi/FetchAndCreateFasta.sh"
+}

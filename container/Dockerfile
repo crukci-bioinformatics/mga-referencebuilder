@@ -9,7 +9,7 @@ ARG BOWTIE1=1.1.1
 
 ARG TAROPTS="--no-same-owner --no-same-permissions"
 
-RUN dnf install -y python3 python3-urllib3 python3-openpyxl
+RUN dnf install -y java-17-openjdk-devel python3 python3-urllib3 python3-openpyxl
 
 RUN mkdir -p ${INSTALL_DIR} ${BUILD_DIR}
 

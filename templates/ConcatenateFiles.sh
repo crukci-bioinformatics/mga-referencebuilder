@@ -1,6 +1,6 @@
 #!/bin/bash
 
-java -Djava.io.tmpdir="$TMPDIR" \
+!{params.JAVA} -Djava.io.tmpdir="$TMPDIR" \
 -Xms!{javaMem}m -Xmx!{javaMem}m \
 -cp /opt/nf-referencebuilder.jar \
 org.cruk.pipelines.referencegenomes.ConcatenateFiles \

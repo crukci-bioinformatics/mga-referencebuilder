@@ -46,7 +46,10 @@ public class NCBIAssembler implements Callable<Integer>
     {
         try
         {
-            return new URI(s);
+            int lastSlash = s.lastIndexOf('/');
+            String id = s.substring(lastSlash + 1);
+            String fullUri = s + "/" + id + "_genomic.fna.gz";
+            return new URI(fullUri);
         }
         catch (URISyntaxException e)
         {

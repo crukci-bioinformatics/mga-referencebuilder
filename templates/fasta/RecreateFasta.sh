@@ -20,7 +20,7 @@ function clean_up
 
 trap clean_up SIGHUP SIGINT SIGTERM
 
-java -Djava.io.tmpdir="$TMPDIR" \
+!{params.JAVA} -Djava.io.tmpdir="$TMPDIR" \
 -Xms!{javaMem}m -Xmx!{javaMem}m \
 -cp /opt/nf-referencebuilder.jar \
 org.cruk.pipelines.referencegenomes.RecreateFasta \
