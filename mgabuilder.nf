@@ -15,12 +15,6 @@ workflow
 {
     bacteriaWF()
     fungiWF()
-    mycoplasmaWF()
-    ribosomalRnaWF()
-    virusesWF()
-    /*
-    bacteriaWF()
-    fungiWF()
     // mycoplasmaWF()
     ribosomalRnaWF()
     virusesWF()
@@ -34,5 +28,4 @@ workflow
         .mix(virusesWF.out)
 
     bowtie1Index(bowtieChannel)
-    */
 }
