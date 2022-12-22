@@ -1,6 +1,6 @@
 #!/bin/sh
 
-TAG="latest"
+TAG="1.0.0"
 REPO="crukcibioinformatics/mgareferencebuilder:$TAG"
 SIF="mgareferencebuilder-$TAG.sif"
 

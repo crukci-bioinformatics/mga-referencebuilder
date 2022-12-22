@@ -2,11 +2,14 @@
 
 DIR=$(dirname $0)
 
-TAG="latest"
+TAG="1.0.0"
 REPO="crukcibioinformatics/mgareferencebuilder:$TAG"
 
 # Can't do this in the Dockerfile.
-cp $DIR/../java/target/nf-referencebuilder-*.jar $DIR/nf-referencebuilder.jar
+cp $DIR/../java/target/mga-referencebuilder-*.jar $DIR/mga-referencebuilder.jar
 
 sudo docker build --tag "$REPO" --file Dockerfile .
-#sudo docker push "$REPO"
+if [ $? -eq 0 ]
+then
+    sudo docker push "$REPO"
+fi

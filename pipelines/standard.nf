@@ -31,7 +31,7 @@ process fetchFasta
         fastaFile = "downloaded.blob"
 
         """
-        curl -s -o !{fastaFile} "!{genomeInfo['url.fasta']}"
+        wget -O !{fastaFile} "!{genomeInfo['url.fasta']}"
         """
 }
 

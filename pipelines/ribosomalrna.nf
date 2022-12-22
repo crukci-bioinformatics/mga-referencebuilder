@@ -14,8 +14,8 @@ process fetchFasta
         """
         set -eu
 
-        curl -s -o "!{fastaFile}.gz" \
-            "ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/phase2_reference_assembly_sequence/hs37d5.fa.gz"
+        wget -O "!{fastaFile}.gz" \
+            "https://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/phase2_reference_assembly_sequence/hs37d5.fa.gz"
 
         gunzip "!{fastaFile}.gz"
         """
@@ -36,8 +36,8 @@ process fetchGTF
         """
         set -eu
 
-        curl -s -o "!{gtfFile}.gz" \
-            "ftp://ftp.ensembl.org/pub/release-!{release}/gtf/homo_sapiens/!{gtfFile}.gz"
+        wget -O "!{gtfFile}.gz" \
+            "https://ftp.ensembl.org/pub/release-!{release}/gtf/homo_sapiens/!{gtfFile}.gz"
 
         gunzip "!{gtfFile}.gz"
         """
@@ -68,6 +68,8 @@ process combineRegions
 {
     label 'tiny'
     tag 'ribosomalRNA'
+
+    publishDir "${launchDir}/customFasta", mode: 'link'
 
     input:
         path(regionFiles)

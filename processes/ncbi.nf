@@ -16,7 +16,7 @@ process fetchAssemblySummary
         assemblySummary = 'assembly_summary.txt'
 
         """
-        curl -s -o !{assemblySummary} "https://ftp.ncbi.nlm.nih.gov/genomes/genbank/${type}/!{assemblySummary}"
+        wget -O !{assemblySummary} "https://ftp.ncbi.nlm.nih.gov/genomes/genbank/${type}/!{assemblySummary}"
         """
 }
 
@@ -36,7 +36,7 @@ process fetchGenomic
         fastaFile = "${id}_genomic.fna.gz"
 
         """
-        curl -s -o "!{fastaFile}" "!{url}/!{fastaFile}"
+        wget -O "!{fastaFile}" "!{url}/!{fastaFile}"
         """
 }
 
@@ -65,6 +65,9 @@ process fetchAndCreateFasta
     publishDir "${launchDir}/customFasta", mode: 'link'
 
     cpus 7
+    time '4h'
+    errorStrategy 'finish'
+    cache 'deep'
 
     input:
         val(id)

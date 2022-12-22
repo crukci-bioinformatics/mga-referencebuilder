@@ -6,9 +6,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.cruk.pipelines</groupId>
-    <artifactId>nf-referencebuilder</artifactId>
+    <artifactId>mga-referencebuilder</artifactId>
     <packaging>jar</packaging>
-    <version>3.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <name>Reference Genome Builder Tools</name>
     <description>

@@ -1,15 +1,15 @@
-FROM    crukcibioinformatics/alignment:4.0.5
+FROM    crukcibioinformatics/alignment:4.1.0
 
 LABEL   maintainer="Richard Bowers<richard.bowers@cruk.cam.ac.uk>"
 
 ARG INSTALL_DIR=/opt
 ARG BUILD_DIR=/var/tmp/mga_referencebuilder_software_build
 
-ARG BOWTIE1=1.1.1
+ARG BOWTIE1=1.3.1
 
 ARG TAROPTS="--no-same-owner --no-same-permissions"
 
-RUN dnf install -y java-17-openjdk-devel python3 python3-urllib3 python3-openpyxl
+RUN dnf install -y python3 python3-urllib3 python3-openpyxl
 
 RUN mkdir -p ${INSTALL_DIR} ${BUILD_DIR}
 
