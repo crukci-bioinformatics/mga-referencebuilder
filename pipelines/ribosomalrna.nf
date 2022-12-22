@@ -69,8 +69,6 @@ process combineRegions
     label 'assembler'
     tag 'ribosomalRNA'
 
-    publishDir "${launchDir}/customFasta", mode: 'link'
-
     input:
         path(regionFiles)
 

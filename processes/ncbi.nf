@@ -64,8 +64,6 @@ process fetchAndCreateFasta
     label 'assembler'
     tag { id }
 
-    publishDir "${launchDir}/customFasta", mode: 'link'
-
     cpus 7
     time '4h'
     errorStrategy 'finish'
