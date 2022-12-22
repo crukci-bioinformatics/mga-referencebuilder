@@ -42,6 +42,7 @@ process fetchGenomic
 
 process createFasta
 {
+    label 'assembler'
     tag { id }
 
     input:
@@ -60,6 +61,7 @@ process createFasta
 
 process fetchAndCreateFasta
 {
+    label 'assembler'
     tag { id }
 
     publishDir "${launchDir}/customFasta", mode: 'link'

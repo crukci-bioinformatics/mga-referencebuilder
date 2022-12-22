@@ -66,7 +66,7 @@ process extractFasta
 
 process combineRegions
 {
-    label 'tiny'
+    label 'assembler'
     tag 'ribosomalRNA'
 
     publishDir "${launchDir}/customFasta", mode: 'link'

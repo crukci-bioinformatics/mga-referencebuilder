@@ -98,6 +98,11 @@ public class NCBIAssembler implements Callable<Integer>
         {
             returnCode = new CommandLine(new NCBIAssembler()).execute(args);
         }
+        catch (OutOfMemoryError e)
+        {
+            returnCode = 104;
+            e.printStackTrace();
+        }
         catch (Throwable e)
         {
             e.printStackTrace();

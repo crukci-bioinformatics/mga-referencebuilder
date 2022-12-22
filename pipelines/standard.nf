@@ -49,6 +49,8 @@ process fetchFasta
  */
 process recreateFasta
 {
+    label 'assembler'
+
     input:
         tuple val(genomeInfo), path(fastaFile)
 
