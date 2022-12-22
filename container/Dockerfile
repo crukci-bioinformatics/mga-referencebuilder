@@ -17,10 +17,11 @@ RUN mkdir -p ${INSTALL_DIR} ${BUILD_DIR}
 RUN cd ${BUILD_DIR}; \
     wget https://downloads.sourceforge.net/project/bowtie-bio/bowtie/${BOWTIE1}/bowtie-${BOWTIE1}-linux-x86_64.zip
 RUN cd ${INSTALL_DIR}; \
-    unzip -q ${BUILD_DIR}/bowtie-${BOWTIE1}-linux-x86_64.zip
+    unzip -q ${BUILD_DIR}/bowtie-${BOWTIE1}-linux-x86_64.zip && \
+    mv bowtie-${BOWTIE1}-linux-x86_64 bowtie-${BOWTIE1}
 
 # This pipeline's Java programs.
-COPY nf-referencebuilder.jar /opt
+COPY mga-referencebuilder.jar /opt
 
 ## Clean up
 RUN cd / && rm -rf ${BUILD_DIR}

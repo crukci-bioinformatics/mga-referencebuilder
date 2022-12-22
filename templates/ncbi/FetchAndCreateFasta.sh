@@ -1,8 +1,8 @@
 #!/bin/bash
 
-!{params.JAVA} -Djava.io.tmpdir="$TMPDIR" \
+java -Djava.io.tmpdir="$TMPDIR" \
 -Xms!{javaMem}m -Xmx!{javaMem}m \
--cp /opt/nf-referencebuilder.jar \
+-cp /opt/mga-referencebuilder.jar \
 org.cruk.pipelines.referencegenomes.NCBIAssembler \
 -u "!{urlFile}" \
 -o "!{outputFile}" \
