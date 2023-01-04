@@ -45,7 +45,9 @@ process fetchGTF
 
 process extractFasta
 {
-    label 'tiny'
+    memory 4.MB
+    time '15m'
+
     tag { region }
 
     input:

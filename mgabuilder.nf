@@ -33,6 +33,8 @@ process supporting
 
 workflow
 {
+    supporting(channel.fromPath("${projectDir}/resources/*", type: 'file'))
+
     bacteriaWF()
     fungiWF()
     // mycoplasmaWF()
@@ -48,6 +50,4 @@ workflow
         .mix(virusesWF.out)
 
     bowtie1Index(bowtieChannel)
-
-    supporting(channel.fromPath("${projectDir}/resources/*"))
 }
