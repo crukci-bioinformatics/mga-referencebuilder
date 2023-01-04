@@ -59,7 +59,7 @@ process extractFasta
         ribosomalRnaFile = "${region.replace(':', '-')}.region.fa"
 
         """
-        !{params.SAMTOOLS} faidx \
+        samtools faidx \
             "!{fastaFile}" "!{region}" > "!{ribosomalRnaFile}"
         """
 }
