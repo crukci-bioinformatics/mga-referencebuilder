@@ -11,6 +11,26 @@ include { virusesWF } from './pipelines/viruses'
 
 include { bowtie1Index } from './processes/bowtie1'
 
+process supporting
+{
+    label 'tiny'
+    tag { theFile.name }
+
+    publishDir params.referenceTop, mode: 'copy'
+
+    input:
+        path(theFile)
+
+    output:
+        path(theFile)
+
+    shell:
+        // Nothing to actually do. publishDir does the work.
+        """
+        echo "Publish supporting file !{theFile.name}"
+        """
+}
+
 workflow
 {
     bacteriaWF()
@@ -28,4 +48,6 @@ workflow
         .mix(virusesWF.out)
 
     bowtie1Index(bowtieChannel)
+
+    supporting(channel.fromPath("${projectDir}/resources/*"))
 }
