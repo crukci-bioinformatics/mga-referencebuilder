@@ -14,12 +14,13 @@ def bowtiePath()
 def bowtieExists(assembly)
 {
     def base = "${bowtiePath()}/${assembly}"
+    def suffixes = [ 'ebwt', 'ebwtl' ]
 
-    def forwardRequires = [ "${base}.1.ebwt", "${base}.1.ebwtl" ]
-    def forwardExists = forwardRequires.any { file(it).exists() }
+    def forwardRequires = suffixes.collect { file("${base}.1.${it}") }
+    def forwardExists = forwardRequires.any { it.exists() }
 
-    def reverseRequires = [ "${base}.rev.1.ebwt", "${base}.rev.1.ebwtl" ]
-    def reverseExists = forwardRequires.any { file(it).exists() }
+    def reverseRequires = suffixes.collect { file("${base}.rev.1.${it}") }
+    def reverseExists = reverseRequires.any { it.exists() }
 
     return forwardExists && reverseExists
 }
