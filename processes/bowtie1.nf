@@ -4,6 +4,7 @@ process bowtie1Index
 {
     label 'builder'
     maxForks 4
+    time '1d'
 
     publishDir "${bowtiePath()}", mode: 'copy'
 
