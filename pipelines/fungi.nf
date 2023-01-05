@@ -1,4 +1,4 @@
-include { bowtiePath } from '../functions/functions'
+include { bowtiePath; bowtieExists } from '../functions/functions'
 include { fetchAssemblySummary; fetchAndCreateFasta } from '../processes/ncbi'
 
 workflow fungiWF
@@ -9,9 +9,7 @@ workflow fungiWF
         infoChannel = channel.of(id)
             .filter
             {
-                def bowtieBase = "${bowtiePath()}/${id}"
-                def requiredFiles = [ file("${bowtieBase}.1.ebwt"), file("${bowtieBase}.rev.1.ebwt") ]
-                return requiredFiles.any { !it.exists() }
+                !bowtieExists(it)
             }
 
         fetchAssemblySummary(infoChannel, 'fungi')

@@ -8,6 +8,23 @@ def bowtiePath()
 }
 
 /*
+ * Function to test whether the Bowtie indexes exist. This is complicated
+ * by the possibility that the suffix can be "ebwt" or "ebwtl".
+ */
+def bowtieExists(assembly)
+{
+    def base = "${bowtiePath()}/${assembly}"
+
+    def forwardRequires = [ "${base}.1.ebwt", "${base}.1.ebwtl" ]
+    def forwardExists = forwardRequires.any { file(it).exists() }
+
+    def reverseRequires = [ "${base}.rev.1.ebwt", "${base}.rev.1.ebwtl" ]
+    def reverseExists = forwardRequires.any { file(it).exists() }
+
+    return forwardExists && reverseExists
+}
+
+/*
  * Get the size of a collection of things. It might be that the thing
  * passed in isn't a collection or map, in which case the size is 1.
  *

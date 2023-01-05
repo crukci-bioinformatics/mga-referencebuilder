@@ -18,6 +18,9 @@ process supporting
 
     publishDir params.referenceTop, mode: 'copy'
 
+    when:
+        !file("${params.referenceTop}/${theFile.name}").exists()
+
     input:
         path(theFile)
 

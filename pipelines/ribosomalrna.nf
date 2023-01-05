@@ -1,9 +1,12 @@
-include { bowtiePath } from '../functions/functions'
+include { bowtiePath; bowtieExists } from '../functions/functions'
 
 process fetchFasta
 {
     label 'fetcher'
     tag 'ribosomalRNA'
+
+    input:
+        val id
 
     output:
         path(fastaFile)
@@ -25,6 +28,9 @@ process fetchGTF
 {
     label 'fetcher'
     tag 'ribosomalRNA'
+
+    input:
+        val id
 
     output:
         path(gtfFile)
@@ -93,13 +99,13 @@ workflow ribosomalRnaWF
         infoChannel = channel.of(id)
             .filter
             {
-                def bowtieBase = "${bowtiePath()}/${id}"
-                def requiredFiles = [ file("${bowtieBase}.1.ebwt"), file("${bowtieBase}.rev.1.ebwt") ]
-                return requiredFiles.any { !it.exists() }
+                !bowtieExists(it)
             }
 
-        fetchFasta()
-        fetchGTF()
+        // Channel will have zero or one items.
+
+        fetchFasta(infoChannel)
+        fetchGTF(infoChannel)
 
         regionsChannel = fetchGTF.out
             .splitCsv(sep: '\t', skip: 5)

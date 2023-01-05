@@ -2,7 +2,7 @@
     Pipeline to fetch and process FASTA reference sequence.
 */
 
-include { javaMemMB; bowtiePath } from '../functions/functions'
+include { javaMemMB; bowtiePath; bowtieExists } from '../functions/functions'
 
 def readGenomeInfo(propsFile)
 {
@@ -75,10 +75,7 @@ workflow standardWF
             }
             .filter
             {
-                genomeInfo ->
-                def bowtieBase = "${bowtiePath()}/${genomeInfo.base}"
-                def requiredFiles = [ file("${bowtieBase}.1.ebwt"), file("${bowtieBase}.rev.1.ebwt") ]
-                return requiredFiles.any { !it.exists() }
+                !bowtieExists(it.base)
             }
 
         fetchFasta(genomeInfoChannel) | recreateFasta
