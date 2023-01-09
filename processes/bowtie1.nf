@@ -11,7 +11,7 @@ process bowtie1Index
         tuple val(genomeInfo), path(fastaFile)
 
     output:
-        tuple val(genomeInfo), path('*.ebwt')
+        tuple val(genomeInfo), path('*.ebwt{,l}')
 
     shell:
         """
