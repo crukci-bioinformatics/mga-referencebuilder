@@ -52,7 +52,7 @@ process fetchGTF
 process extractFasta
 {
     memory 4.MB
-    time '15m'
+    time '30m'
 
     tag { region }
 
